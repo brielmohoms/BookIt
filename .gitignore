@@ -1,5 +1,35 @@
-bin/
-obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
+## Rider / JetBrains IDEs
+.idea/
+*.sln.iml
+
+## Visual Studio and VS Code
+.vs/
+.vscode/
+
+## Build Results
+[Bb]in/
+[Oo]bj/
+out/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## ReSharper
+_ReSharper*/
+*.[Rr]eSharper
+
+## NuGet Packages
+*.nupkg
+.nuget/
+
+## OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+## Logs and temporary files
+*.log
+*.tmp
