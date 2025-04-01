@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B240E914-0C5E-47FD-B09C-E11336EA7D6F}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Domain", "src\BookIt.Domain\BookIt.Domain.csproj", "{40B9A3AF-31F5-41FD-A248-0BD63FEF00DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40B9A3AF-31F5-41FD-A248-0BD63FEF00DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40B9A3AF-31F5-41FD-A248-0BD63FEF00DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40B9A3AF-31F5-41FD-A248-0BD63FEF00DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40B9A3AF-31F5-41FD-A248-0BD63FEF00DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

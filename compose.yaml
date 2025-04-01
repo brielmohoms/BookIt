@@ -1,0 +1,6 @@
+﻿services:
+  bookit.domain:
+    image: bookit.domain
+    build:
+      context: .
+      dockerfile: BookIt.Domain/Dockerfile
