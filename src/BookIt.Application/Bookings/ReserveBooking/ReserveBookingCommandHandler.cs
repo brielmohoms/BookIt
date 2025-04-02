@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.Abstractions.Clock;
+using BookIt.Application.Exceptions;
 using BookIt.Application.Messaging;
 using BookIt.Domain;
 using BookIt.Domain.Abstractions;
@@ -36,37 +37,41 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
     public async Task<Result<Guid>> Handle(ReserveBookingCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
-
         if (user == null)
         {
             return Result.Failure<Guid>(UserErrors.NotFound);
         }
         
         var apartment = await _apartmentRepository.GetByIdAsync(request.ApartmentId, cancellationToken);
-
         if (apartment is null)
         {
             return Result.Failure<Guid>(ApartmentErrors.NotFound);
         }
         
         var duration = DateRange.Create(request.StartDate, request.EndDate);
-
         if (await _bookingRepository.IsOverlappingAsync(apartment, duration, cancellationToken))
         {
             return Result.Failure<Guid>(BookingErrors.Overlap);
         }
-        
-        var booking = Booking.Reserve(
-            user.Id,
-            apartment,
-            duration,
-            _dateTimeProvider.Now,
-            _pricingService);
 
-        _bookingRepository.AddBooking(booking);
-        
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        
-        return booking.Id;
+        try
+        {
+            var booking = Booking.Reserve(
+                user.Id,
+                apartment,
+                duration,
+                _dateTimeProvider.Now,
+                _pricingService);
+
+            _bookingRepository.AddBooking(booking);
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            return booking.Id;
+        }
+        catch (ConcurrencyException)
+        {
+            return Result.Failure<Guid>(BookingErrors.Overlap);
+        }
     }
 }

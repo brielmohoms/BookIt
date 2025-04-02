@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Application", "src\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Infrastructure", "src\BookIt.Infrastructure\BookIt.Infrastructure.csproj", "{5C0BA87F-FDA3-43ED-970A-11DD1ED05B8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Presentation", "src\BookIt.Presentation\BookIt.Presentation.csproj", "{8B9C30CF-3F21-4814-B04C-DF8A3516B74E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Api", "src\BookIt.Api\BookIt.Api.csproj", "{57CEA982-6729-4D24-8420-824817187A40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,9 +31,9 @@ Global
 		{5C0BA87F-FDA3-43ED-970A-11DD1ED05B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C0BA87F-FDA3-43ED-970A-11DD1ED05B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C0BA87F-FDA3-43ED-970A-11DD1ED05B8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B9C30CF-3F21-4814-B04C-DF8A3516B74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B9C30CF-3F21-4814-B04C-DF8A3516B74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B9C30CF-3F21-4814-B04C-DF8A3516B74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B9C30CF-3F21-4814-B04C-DF8A3516B74E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57CEA982-6729-4D24-8420-824817187A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57CEA982-6729-4D24-8420-824817187A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57CEA982-6729-4D24-8420-824817187A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57CEA982-6729-4D24-8420-824817187A40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

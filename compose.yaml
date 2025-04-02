@@ -4,3 +4,21 @@
     build:
       context: .
       dockerfile: BookIt.Domain/Dockerfile
+
+  bookit.api:
+    image: bookit.api
+    build:
+      context: .
+      dockerfile: src/BookIt.Api/Dockerfile
+
+  bookit.api-1:
+    image: bookit.api-1
+    build:
+      context: .
+      dockerfile: BookIt.Api/Dockerfile
+
+  bookit.api-2:
+    image: bookit.api-2
+    build:
+      context: .
+      dockerfile: src/BookIt.Api/Dockerfile
