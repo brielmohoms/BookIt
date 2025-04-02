@@ -1,6 +1,6 @@
 ﻿using BookIt.Domain.Abstractions;
 
-namespace BookIt.Domain;
+namespace BookIt.Domain.Bookings;
 
 public static class BookingErrors
 {

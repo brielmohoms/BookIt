@@ -2,7 +2,7 @@
 using BookIt.Domain.Apartments;
 using BookIt.Domain.Users.Events;
 
-namespace BookIt.Domain;
+namespace BookIt.Domain.Bookings;
 
 public sealed class Booking : Entity
 {
