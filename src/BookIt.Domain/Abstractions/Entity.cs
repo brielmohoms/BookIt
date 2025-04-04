@@ -7,6 +7,11 @@ public abstract class Entity // We can't create an entity instance but we can on
     {
         Id = id;
     }
+
+    protected Entity()
+    {
+    }
+    
     public Guid Id { get; init; } // init setter, once we define it, the id is set for life
 
     public IReadOnlyList<IDomainEvent> GetDomainEvents()

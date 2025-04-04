@@ -18,8 +18,4 @@
       <ProjectReference Include="..\BookIt.Domain\BookIt.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Compile Include="**\*.cs" />
-    </ItemGroup>
-
 </Project>

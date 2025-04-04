@@ -8,6 +8,13 @@ public sealed class User : Entity
     private User(Guid userId, FirstName firstName, LastName lastName, Email email) 
         : base(userId)
     {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+    }
+
+    private User()
+    {
     }
     
     public FirstName FirstName { get; private set; }

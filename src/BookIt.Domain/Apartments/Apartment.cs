@@ -4,11 +4,28 @@ namespace BookIt.Domain.Apartments;
 
 public sealed class Apartment : Entity // sealed bc it is not going to be inherited
 {
-    public Apartment(Guid id) 
-        : base(id)
+    private Apartment() 
     {
     }
-    
+
+    public Apartment(
+        Guid id, 
+        Name name, 
+        Address address, 
+        Description description, 
+        Money price, 
+        Money cleaningFee,
+        List<Amenity> amenities) 
+        : base(id)
+    {
+        Name = name;
+        Address = address;
+        Description = description;
+        Price = price;
+        CleaningFee = cleaningFee;
+        Amenities = amenities;
+    }
+
     public Name Name { get; private set; }
     
     public Address Address { get; private set; }

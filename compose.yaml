@@ -1,24 +1,27 @@
-﻿services:
-  bookit.domain:
-    image: bookit.domain
-    build:
-      context: .
-      dockerfile: BookIt.Domain/Dockerfile
+﻿version: '3.8'
 
+services: 
+  
   bookit.api:
     image: bookit.api
+    container_name: BookIt.Api
     build:
       context: .
       dockerfile: src/BookIt.Api/Dockerfile
-
-  bookit.api-1:
-    image: bookit.api-1
-    build:
-      context: .
-      dockerfile: BookIt.Api/Dockerfile
-
-  bookit.api-2:
-    image: bookit.api-2
-    build:
-      context: .
-      dockerfile: src/BookIt.Api/Dockerfile
+    ports:
+      - "5042:5042"   # Exposes HTTP endpoint
+      - "7123:7123"
+    depends_on:
+      - bookit-db
+      
+  bookit-db:
+    image: postgres:latest
+    container_name: BookIt.Db
+    environment:
+      - POSTGRES_DB=bookit
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432

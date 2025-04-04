@@ -9,17 +9,26 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0-preview.2.25163.8">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Swagger" Version="1.0.0" />
+        <PackageReference Include="Swagger-Net" Version="8.5.12.1" />
+        <PackageReference Include="SwaggerGenerator" Version="1.1.0" />
+        <PackageReference Include="SwaggerUi" Version="1.1.0" />
+        <PackageReference Include="SwaggerUI.OpenApi" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BookIt.Application\BookIt.Application.csproj" />
+      <ProjectReference Include="..\BookIt.Infrastructure\BookIt.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\BookIt.Application\BookIt.Application.csproj" />
-      <ProjectReference Include="..\BookIt.Infrastructure\BookIt.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

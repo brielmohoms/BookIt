@@ -8,6 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/BookIt.Api/BookIt.Api.csproj", "src/BookIt.Api/"]
+COPY ["src/BookIt.Application/BookIt.Application.csproj", "src/BookIt.Application/"]
+COPY ["src/BookIt.Domain/BookIt.Domain.csproj", "src/BookIt.Domain/"]
+COPY ["src/BookIt.Infrastructure/BookIt.Infrastructure.csproj", "src/BookIt.Infrastructure/"]
 RUN dotnet restore "src/BookIt.Api/BookIt.Api.csproj"
 COPY . .
 WORKDIR "/src/src/BookIt.Api"

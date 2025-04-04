@@ -26,6 +26,10 @@ public sealed class Booking : Entity
         DateCreated = dateCreated;
     }
 
+    private Booking()
+    {
+    }
+
     public Guid UserId { get; private set; }
     
     public Guid ApartmentId { get; private set; }
