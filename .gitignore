@@ -34,5 +34,5 @@ Desktop.ini
 *.log
 *.tmp
 
-.config
-.containers
+.config/
+.containers/
