@@ -37,21 +37,21 @@ internal sealed class SearchApartmentsQueryHandler
                            a.id AS Id,
                            a.name AS Name,
                            a.description AS Description,
-                           a.price AS Price,
+                           a.price_amount AS Price,
                            a.price_currency AS Currency,
                            a.address_country AS Country,
                            a.address_state AS State,
                            a.address_zip_code AS ZipCode,
                            a.address_city AS City,
-                           a.address_street AS Street
+                           a.address_street_number AS Street
                            FROM apartments AS a
                            WHERE NOT EXISTS(
                                SELECT 1
                                FROM bookings AS b
                                WHERE
                                    b.apartment_id = a.id AND 
-                                   b.start_date <= @EndDate AND
-                                   b.end_date >= @StartDate AND
+                                   b.duration_start_date <= @EndDate AND
+                                   b.duration_end_date >= @StartDate AND
                                    b.status = ANY(@ActiveBookingStatuses)
                            )
                            """;

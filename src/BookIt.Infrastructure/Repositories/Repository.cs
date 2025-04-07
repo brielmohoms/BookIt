@@ -4,17 +4,18 @@ using Microsoft.EntityFrameworkCore;
 namespace BookIt.Infrastructure.Repositories;
 
 // generic repository base class
-internal abstract class Repository<T> where T : Entity
+internal abstract class Repository<T> 
+    where T : Entity
 {
     protected readonly ApplicationDbContext DbContext;
 
     protected Repository(ApplicationDbContext dbContext)
     {
-        this.DbContext = dbContext;
+        DbContext = dbContext;
     }
 
     // fetches an entity by Id
-    public async Task<T> GetByIdAsync(
+    public async Task<T?> GetByIdAsync(
         Guid id, 
         CancellationToken cancellationToken = default) 
     {
@@ -26,6 +27,6 @@ internal abstract class Repository<T> where T : Entity
     // adds an entity to the database
     public void Add(T entity)
     {
-        DbContext.Add(entity);
+        DbContext.Set<T>().Add(entity);
     }
 }

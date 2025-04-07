@@ -30,7 +30,7 @@ public static class DependencyInjection
         services.AddTransient<IEmailService, EmailService>();
         
         var connectionString = 
-            configuration.GetConnectionString("BookItDb") ??
+            configuration.GetConnectionString("Database") ??
             throw new ArgumentNullException(nameof(configuration));
         
         // to register EF Core
@@ -47,7 +47,8 @@ public static class DependencyInjection
         
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
         
-        services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
+        services.AddSingleton<ISqlConnectionFactory>(_ =>
+            new SqlConnectionFactory(connectionString));
         
         SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
         

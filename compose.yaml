@@ -1,6 +1,4 @@
-﻿version: '3.8'
-
-services: 
+﻿services: 
   
   bookit.api:
     image: bookit.api
@@ -8,8 +6,14 @@ services:
     build:
       context: .
       dockerfile: src/BookIt.Api/Dockerfile
+      args:
+        configuration: "Development"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5050
+      - ConnectionStrings__Database=Host=bookit-db;Port=5432;Database=bookit;Username=postgres;Password=postgres;
     ports:
-      - "5042:5042"   # Exposes HTTP endpoint
+      - "5051:5051"   # Exposes HTTP endpoint
       - "7123:7123"
     depends_on:
       - bookit-db
@@ -24,4 +28,4 @@ services:
     volumes:
       - ./.containers/database:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
