@@ -1,9 +1,11 @@
 ﻿using BookIt.Application.Apartments.SearchApartments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookIt.Api.Controllers.Apartments;
 
+[Authorize]
 [ApiController]
 [Route("api/apartments")]
 public class ApartmentController : ControllerBase

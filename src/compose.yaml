@@ -11,9 +11,9 @@
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5050
-      - ConnectionStrings__Database=Host=bookit-db;Port=5432;Database=bookit;Username=postgres;Password=postgres;
+      - ConnectionStrings__Database=Host=bookit-db;Port=5432;Database=bookit;Username=postgres;Password=password;
     ports:
-      - "5051:5051"   # Exposes HTTP endpoint
+      - "5050:5050"   # Exposes HTTP endpoint
       - "7123:7123"
     depends_on:
       - bookit-db
@@ -24,8 +24,21 @@
     environment:
       - POSTGRES_DB=bookit
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
     volumes:
       - ./.containers/database:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+        
+  bookit-idp:
+    image: quay.io/keycloak/keycloak:latest    
+    container_name: BookIt.Identity
+    command: ["start-dev", "--import-realm"]
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin  
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data
+      - ./.files/bookit-realm-export.json:/opt/keycloak/data/import/realm.json
+    ports:
+      - "18080:8080"
