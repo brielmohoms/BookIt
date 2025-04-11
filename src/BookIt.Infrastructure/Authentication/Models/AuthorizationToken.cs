@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace BookIt.Infrastructure.Models;
+namespace BookIt.Infrastructure.Authentication.Models;
 
 public sealed class AuthorizationToken // used to authenticate to the keycloak admin api
 {

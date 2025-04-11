@@ -2,6 +2,7 @@
   
   bookit.api:
     image: bookit.api
+    restart: always
     container_name: BookIt.Api
     build:
       context: .
@@ -16,10 +17,14 @@
       - "5050:5050"   # Exposes HTTP endpoint
       - "7123:7123"
     depends_on:
-      - bookit-db
+      bookit-db:
+        condition: service_healthy
+      bookit-idp:
+        condition: service_started
       
   bookit-db:
     image: postgres:latest
+    restart: always
     container_name: BookIt.Db
     environment:
       - POSTGRES_DB=bookit
@@ -29,9 +34,15 @@
       - ./.containers/database:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
         
   bookit-idp:
-    image: quay.io/keycloak/keycloak:latest    
+    image: quay.io/keycloak/keycloak:latest
+    restart: always
     container_name: BookIt.Identity
     command: ["start-dev", "--import-realm"]
     environment:

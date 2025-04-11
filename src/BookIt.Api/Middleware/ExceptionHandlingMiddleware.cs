@@ -1,6 +1,7 @@
 ﻿using BookIt.Application.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-namespace BookifyApi.Middleware;
+
+namespace BookIt.Api.Middleware;
 
 public class ExceptionHandlingMiddleware
 {

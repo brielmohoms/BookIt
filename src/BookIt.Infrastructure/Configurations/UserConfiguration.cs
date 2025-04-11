@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookIt.Infrastructure.Configurations;
 
-internal sealed class UserConfiguration
+internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("users");
+        builder.ToTable("user");
         
         builder.HasKey(user => user.Id);
         
@@ -25,5 +25,7 @@ internal sealed class UserConfiguration
             .HasConversion(email => email.Value, value => new Domain.Users.Email(value));
         
         builder.HasIndex(user => user.Email).IsUnique();
+        
+        builder.HasIndex(user => user.Id).IsUnique();
     }
 }

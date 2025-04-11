@@ -1,4 +1,4 @@
-﻿using BookifyApi.Middleware;
+﻿using BookIt.Api.Middleware;
 using BookIt.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +15,7 @@ public static class ApplicationBuilderExtensions
         dbContext.Database.Migrate();
     }
     
-    public static void UseCustomExceptionsHandler(this IApplicationBuilder app)
+    public static void UseCustomExceptionHandler(this IApplicationBuilder app)
     {
         app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
