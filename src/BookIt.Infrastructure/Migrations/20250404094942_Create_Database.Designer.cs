@@ -126,7 +126,7 @@ namespace BookIt.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_user");
 
-                    b.ToTable("user", (string)null);
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("BookIt.Domain.Apartments.Apartment", b =>
@@ -395,7 +395,7 @@ namespace BookIt.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("user");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId")
@@ -415,7 +415,7 @@ namespace BookIt.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("user");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId")
@@ -435,7 +435,7 @@ namespace BookIt.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("user");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId")

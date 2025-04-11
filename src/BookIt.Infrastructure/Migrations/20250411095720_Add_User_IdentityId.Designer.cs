@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookIt.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250411093548_Add_User_IdentityId")]
+    [Migration("20250411095720_Add_User_IdentityId")]
     partial class Add_User_IdentityId
     {
         /// <inheritdoc />
@@ -482,6 +482,7 @@ namespace BookIt.Infrastructure.Migrations
                     .IsRequired()
                     .HasConstraintName("fk_reviews_user_user_id");
             });
+
 #pragma warning restore 612, 618
         }
     }
