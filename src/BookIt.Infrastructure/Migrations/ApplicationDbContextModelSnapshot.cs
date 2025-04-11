@@ -144,17 +144,17 @@ namespace BookIt.Infrastructure.Migrations
                         .HasColumnName("last_name");
 
                     b.HasKey("Id")
-                        .HasName("pk_user");
+                        .HasName("pk_users");
 
                     b.HasIndex("Email")
                         .IsUnique()
-                        .HasDatabaseName("ix_user_email");
+                        .HasDatabaseName("ix_users_email");
 
                     b.HasIndex("Id")
                         .IsUnique()
-                        .HasDatabaseName("ix_user_id");
+                        .HasDatabaseName("ix_users_id");
 
-                    b.ToTable("user", (string)null);
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("BookIt.Domain.Apartments.Apartment", b =>

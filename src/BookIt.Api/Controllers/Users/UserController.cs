@@ -1,12 +1,14 @@
-﻿using BookIt.Application.Users.RegisterUser;
+﻿using BookIt.Application.Users.LoginUser;
+using BookIt.Application.Users.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookIt.Api.Controllers.Users;
 
 [ApiController]
-[Route("api/user")]
+[Route("api/users")]
 public class UserController : ControllerBase
 {
     private readonly ISender _sender; 
@@ -33,6 +35,24 @@ public class UserController : ControllerBase
          { 
              return BadRequest(result.Error); 
          } 
+         return Ok(result.Value);
+     }
+
+     [AllowAnonymous]
+     [HttpPost("login")]
+     public async Task<IActionResult> Login(
+         LoginUserRequest request,
+         CancellationToken cancellationToken)
+     {
+         var command = new LoginUserCommand(request.Email, request.Password);
+         
+         var result = await _sender.Send(command, cancellationToken);
+
+         if (result.IsFailure)
+         {
+             return Unauthorized(result.Error);
+         }
+         
          return Ok(result.Value);
      }
 }
