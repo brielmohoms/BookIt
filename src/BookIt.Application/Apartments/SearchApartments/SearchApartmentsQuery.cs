@@ -1,4 +1,4 @@
-﻿using BookIt.Application.Messaging;
+﻿using BookIt.Application.Abstractions.Messaging;
 
 namespace BookIt.Application.Apartments.SearchApartments;
 

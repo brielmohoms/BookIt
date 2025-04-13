@@ -1,11 +1,11 @@
 ﻿using BookIt.Application.Abstractions.Data;
-using BookIt.Application.Messaging;
+using BookIt.Application.Abstractions.Messaging;
 using BookIt.Domain.Abstractions;
 using Dapper;
 
 namespace BookIt.Application.Bookings.GetBooking;
 
-internal sealed class GetBookingQueryHandler : IqueryHandler<GetBookingQuery, BookingResponse>
+internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, BookingResponse>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

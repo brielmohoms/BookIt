@@ -1,4 +1,4 @@
-﻿using BookIt.Application.Messaging;
+﻿using BookIt.Application.Abstractions.Messaging;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

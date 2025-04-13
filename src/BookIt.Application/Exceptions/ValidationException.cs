@@ -1,6 +1,4 @@
-﻿using BookIt.Application.Abstractions.Behaviors;
-
-namespace BookIt.Application.Exceptions;
+﻿namespace BookIt.Application.Exceptions;
 
 public sealed class ValidationException : Exception
 {

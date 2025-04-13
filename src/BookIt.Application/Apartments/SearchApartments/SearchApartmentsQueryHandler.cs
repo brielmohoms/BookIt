@@ -1,5 +1,5 @@
 ﻿using BookIt.Application.Abstractions.Data;
-using BookIt.Application.Messaging;
+using BookIt.Application.Abstractions.Messaging;
 using BookIt.Domain;
 using BookIt.Domain.Abstractions;
 using Dapper;
@@ -7,7 +7,7 @@ using Dapper;
 namespace BookIt.Application.Apartments.SearchApartments;
 
 internal sealed class SearchApartmentsQueryHandler 
-    : IqueryHandler<SearchApartmentsQuery, IReadOnlyList<ApartmentResponse>>
+    : IQueryHandler<SearchApartmentsQuery, IReadOnlyList<ApartmentResponse>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

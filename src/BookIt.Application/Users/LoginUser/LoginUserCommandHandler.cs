@@ -1,5 +1,5 @@
 ﻿using BookIt.Application.Abstractions.Authentication;
-using BookIt.Application.Messaging;
+using BookIt.Application.Abstractions.Messaging;
 using BookIt.Domain.Abstractions;
 using BookIt.Domain.Users;
 

@@ -1,6 +1,6 @@
 ﻿using BookIt.Application.Abstractions.Clock;
 using BookIt.Application.Exceptions;
-using BookIt.Application.Messaging;
+using BookIt.Application.Abstractions.Messaging;
 using BookIt.Domain;
 using BookIt.Domain.Abstractions;
 using BookIt.Domain.Apartments;

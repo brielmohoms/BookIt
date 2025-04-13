@@ -21,7 +21,8 @@ public class UserController : ControllerBase
      [AllowAnonymous] // so that anyone can register
      [HttpPost("register")]
      public async Task<IActionResult> Register(
-         RegisterUserRequest request)
+         RegisterUserRequest request, 
+         CancellationToken cancellationToken)
      {
          var command = new RegisterUserCommand(  // mapping the request into the command
              request.Email, 
@@ -29,7 +30,7 @@ public class UserController : ControllerBase
              request.LastName, 
              request.Password); 
          
-         var result = await _sender.Send(command); // sending the command using mediator which triggers our command handler
+         var result = await _sender.Send(command, cancellationToken); // sending the command using mediator which triggers our command handler
          
          if (result.IsFailure) 
          { 

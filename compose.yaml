@@ -1,4 +1,4 @@
-﻿services: 
+﻿services:
   
   bookit.api:
     image: bookit.api
@@ -21,7 +21,7 @@
         condition: service_healthy
       bookit-idp:
         condition: service_started
-      
+  
   bookit-db:
     image: postgres:latest
     restart: always
@@ -39,7 +39,7 @@
       interval: 10s
       timeout: 5s
       retries: 5
-        
+  
   bookit-idp:
     image: quay.io/keycloak/keycloak:latest
     restart: always
@@ -47,7 +47,7 @@
     command: ["start-dev", "--import-realm"]
     environment:
       - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin  
+      - KEYCLOAK_ADMIN_PASSWORD=admin
     volumes:
       - ./.containers/identity:/opt/keycloak/data
       - ./.files/bookit-realm-export.json:/opt/keycloak/data/import/realm.json

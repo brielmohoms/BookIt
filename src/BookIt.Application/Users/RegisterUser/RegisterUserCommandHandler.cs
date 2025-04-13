@@ -1,5 +1,5 @@
 ﻿using BookIt.Application.Abstractions.Authentication;
-using BookIt.Application.Messaging;
+using BookIt.Application.Abstractions.Messaging;
 using BookIt.Domain.Abstractions;
 using BookIt.Domain.Users;
 
@@ -7,15 +7,18 @@ namespace BookIt.Application.Users.RegisterUser;
 
 internal sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, Guid>
 {
+    private readonly IAuthenticationService _authenticationService;
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IAuthenticationService _authenticationService;
 
-    public RegisterUserCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, IAuthenticationService authenticationService)
+    public RegisterUserCommandHandler(
+        IAuthenticationService authenticationService, 
+        IUserRepository userRepository, 
+        IUnitOfWork unitOfWork)
     {
+        _authenticationService = authenticationService;
         _userRepository = userRepository;
         _unitOfWork = unitOfWork;
-        _authenticationService = authenticationService;
     }
 
     public async Task<Result<Guid>> Handle(

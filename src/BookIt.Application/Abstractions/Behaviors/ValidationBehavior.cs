@@ -1,4 +1,5 @@
-﻿using BookIt.Application.Messaging;
+﻿using BookIt.Application.Abstractions.Messaging;
+using BookIt.Application.Exceptions;
 using FluentValidation;
 using MediatR;
 
@@ -14,7 +15,8 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
     }
 
     public async Task<TResponse> Handle(
-        TRequest request, RequestHandlerDelegate<TResponse> next,
+        TRequest request, 
+        RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
         if (!_validators.Any())

@@ -1,7 +1,7 @@
 ﻿using BookIt.Domain.Abstractions;
 using MediatR;
 
-namespace BookIt.Application.Messaging;
+namespace BookIt.Application.Abstractions.Messaging;
 
 public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result> 
     where TCommand : ICommand

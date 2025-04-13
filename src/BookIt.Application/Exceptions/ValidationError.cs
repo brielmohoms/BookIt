@@ -1,4 +1,4 @@
-﻿namespace BookIt.Application.Abstractions.Behaviors;
+﻿namespace BookIt.Application.Exceptions;
 
 public sealed record ValidationError(
     string PropertyName,
