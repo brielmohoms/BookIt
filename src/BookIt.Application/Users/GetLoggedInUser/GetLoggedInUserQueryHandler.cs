@@ -1,4 +1,4 @@
-﻿/*using BookIt.Application.Abstractions.Authentication;
+﻿using BookIt.Application.Abstractions.Authentication;
 using BookIt.Application.Abstractions.Data;
 using BookIt.Application.Abstractions.Messaging;
 using BookIt.Domain.Abstractions;
@@ -46,4 +46,4 @@ internal sealed class GetLoggedInUserQueryHandler
         return user;
     }
     
-}*/
+}

@@ -1,6 +1,6 @@
 ﻿namespace BookIt.Domain.Users;
 
-public class Role
+public sealed class Role
 {
     public static readonly Role Registered = new (1, "Registered");
     
@@ -15,4 +15,6 @@ public class Role
     public string Name { get; init; } = string.Empty;
     
     public ICollection<User> Users { get; init; } = new List<User>();
+    
+    public ICollection<Permission> UsersPermissions { get; init; } = new List<Permission>();
 }

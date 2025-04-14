@@ -1,6 +1,7 @@
 ﻿using BookIt.Application.Users.GetLoggedInUser;
 using BookIt.Application.Users.LoginUser;
 using BookIt.Application.Users.RegisterUser;
+using BookIt.Infrastructure.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ public class UserController : ControllerBase
 
     [HttpGet("me")]
     [Authorize(Roles = Roles.Registered)]
-    //[HasPermission(PermissionSetEncoder.UsersRead)]
+    [HasPermission(Permissions.UsersRead)]
     public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
     {
         var query = new GetLoggedInUserQuery();

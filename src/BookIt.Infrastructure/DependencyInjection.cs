@@ -5,6 +5,7 @@ using BookIt.Application.Abstractions.Email;
 using BookIt.Domain.Abstractions;
 using BookIt.Domain.Apartments;
 using BookIt.Domain.Bookings;
+using BookIt.Domain.Reviews;
 using BookIt.Domain.Users;
 using BookIt.Infrastructure.Authentication;
 using BookIt.Infrastructure.Authorization;
@@ -15,6 +16,7 @@ using BookIt.Infrastructure.Repositories;
 using Dapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,12 +48,40 @@ public static class DependencyInjection
 
         return services;
     }
+    
+    private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = 
+            configuration.GetConnectionString("Database") ??
+            throw new ArgumentNullException(nameof(configuration));
+        
+        // to register EF Core
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
+        });
+        
+        services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IApartmentRepository, ApartmentRepository>();
+
+        services.AddScoped<IBookingRepository, BookingRepository>();
+        
+        //services.AddScoped(IReviewRepository, ReviewRepository);
+        
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        
+        services.AddSingleton<ISqlConnectionFactory>(_ =>
+            new SqlConnectionFactory(connectionString));
+        
+        SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
+    }
 
     private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
     {
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(); // used to setup the jwt authentication options
+            .AddJwtBearer(); // used to set up the jwt authentication options
 
         services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
 
@@ -75,32 +105,10 @@ public static class DependencyInjection
 
             httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
         });
-    }
+        
+        services.AddHttpContextAccessor();
 
-    private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
-    {
-        var connectionString = 
-            configuration.GetConnectionString("Database") ??
-            throw new ArgumentNullException(nameof(configuration));
-        
-        // to register EF Core
-        services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
-        });
-        
-        services.AddScoped<IUserRepository, UserRepository>();
-
-        services.AddScoped<IApartmentRepository, ApartmentRepository>();
-
-        services.AddScoped<IBookingRepository, BookingRepository>();
-        
-        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
-        
-        services.AddSingleton<ISqlConnectionFactory>(_ =>
-            new SqlConnectionFactory(connectionString));
-        
-        SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
+        services.AddScoped<IUserContext, UserContext>();
     }
 
     private static void AddAuthorization(IServiceCollection services)
@@ -108,5 +116,9 @@ public static class DependencyInjection
         services.AddScoped<AuthorizationService>();
 
         services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
+        
+        services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+        services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
     }
 }

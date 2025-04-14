@@ -1,7 +1,8 @@
 ﻿using BookIt.Domain.Abstractions;
 using BookIt.Domain.Bookings;
+using BookIt.Domain.Reviews.Events;
 
-namespace BookIt.Domain.Reviews.Events;
+namespace BookIt.Domain.Reviews;
 
 public sealed class Review : Entity
 {

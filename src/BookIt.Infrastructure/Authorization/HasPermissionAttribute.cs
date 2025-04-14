@@ -2,7 +2,7 @@
 
 namespace BookIt.Infrastructure.Authorization;
 
-public class HasPermissionAttribute : AuthorizeAttribute
+public sealed class HasPermissionAttribute : AuthorizeAttribute
 {
     public HasPermissionAttribute(string permission) 
         : base(permission)
