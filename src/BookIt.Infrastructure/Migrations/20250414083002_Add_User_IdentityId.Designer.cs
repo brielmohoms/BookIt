@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookIt.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250411095720_Add_User_IdentityId")]
+    [Migration("20250414083002_Add_User_IdentityId")]
     partial class Add_User_IdentityId
     {
         /// <inheritdoc />
@@ -159,54 +159,6 @@ namespace BookIt.Infrastructure.Migrations
 
                     b.ToTable("users", (string)null);
                 });
-            
-            modelBuilder.Entity("BookIt.Domain.Reviews.Review", b =>
-            {
-                b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid")
-                    .HasColumnName("id");
-
-                b.Property<Guid>("ApartmentId")
-                    .HasColumnType("uuid")
-                    .HasColumnName("apartment_id");
-
-                b.Property<Guid>("BookingId")
-                    .HasColumnType("uuid")
-                    .HasColumnName("booking_id");
-
-                b.Property<string>("Comment")
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .HasColumnType("character varying(200)")
-                    .HasColumnName("comment");
-
-                b.Property<DateTime>("CreatedOnUtc")
-                    .HasColumnType("timestamp with time zone")
-                    .HasColumnName("created_on_utc");
-
-                b.Property<int>("Rating")
-                    .HasColumnType("integer")
-                    .HasColumnName("rating");
-
-                b.Property<Guid>("UserId")
-                    .HasColumnType("uuid")
-                    .HasColumnName("user_id");
-
-                b.HasKey("Id")
-                    .HasName("pk_reviews");
-
-                b.HasIndex("ApartmentId")
-                    .HasDatabaseName("ix_reviews_apartment_id");
-
-                b.HasIndex("BookingId")
-                    .HasDatabaseName("ix_reviews_booking_id");
-
-                b.HasIndex("UserId")
-                    .HasDatabaseName("ix_reviews_user_id");
-
-                b.ToTable("reviews", (string)null);
-            });
 
             modelBuilder.Entity("BookIt.Domain.Apartments.Apartment", b =>
                 {
@@ -458,31 +410,6 @@ namespace BookIt.Infrastructure.Migrations
                     b.Navigation("TotalPrice")
                         .IsRequired();
                 });
-            
-            modelBuilder.Entity("BookIt.Domain.Reviews.Review", b =>
-            {
-                b.HasOne("BookIt.Domain.Apartments.Apartment", null)
-                    .WithMany()
-                    .HasForeignKey("ApartmentId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired()
-                    .HasConstraintName("fk_reviews_apartments_apartment_id");
-
-                b.HasOne("BookIt.Domain.Bookings.Booking", null)
-                    .WithMany()
-                    .HasForeignKey("BookingId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired()
-                    .HasConstraintName("fk_reviews_bookings_booking_id");
-
-                b.HasOne("BookIt.Domain.Users.User", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired()
-                    .HasConstraintName("fk_reviews_user_user_id");
-            });
-
 #pragma warning restore 612, 618
         }
     }

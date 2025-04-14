@@ -7,7 +7,7 @@ namespace BookIt.Infrastructure.Authentication;
 
 internal sealed class AuthenticationService : IAuthenticationService
 {
-    private const string PasswordCredentialType = "password";
+    private const string PasswordCredentialType = "Password";
     
     private readonly HttpClient _httpClient; // configured to access the keycloak restfull api
     

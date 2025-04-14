@@ -41,9 +41,9 @@ namespace BookIt.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    first_name_value = table.Column<string>(type: "text", nullable: false),
-                    last_name_value = table.Column<string>(type: "text", nullable: false),
-                    email_value = table.Column<string>(type: "text", nullable: false)
+                    first_name = table.Column<string>(type: "text", nullable: false),
+                    last_name = table.Column<string>(type: "text", nullable: false),
+                    email = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,7 +132,7 @@ namespace BookIt.Infrastructure.Migrations
                 column: "apartment_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_bookings_users_id",
+                name: "ix_bookings_user_id",
                 table: "bookings",
                 column: "user_id");
             
@@ -147,14 +147,14 @@ namespace BookIt.Infrastructure.Migrations
                 column: "booking_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_reviews_users_id",
+                name: "ix_reviews_user_id",
                 table: "reviews",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_email",
                 table: "users",
-                column: "email_value",
+                column: "email",
                 unique: true);
         }
 
