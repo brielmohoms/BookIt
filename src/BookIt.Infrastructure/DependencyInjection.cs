@@ -7,16 +7,21 @@ using BookIt.Domain.Apartments;
 using BookIt.Domain.Bookings;
 using BookIt.Domain.Users;
 using BookIt.Infrastructure.Authentication;
+using BookIt.Infrastructure.Authorization;
 using BookIt.Infrastructure.Clock;
 using BookIt.Infrastructure.Data;
 using BookIt.Infrastructure.Email;
 using BookIt.Infrastructure.Repositories;
 using Dapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using AuthenticationOptions = BookIt.Infrastructure.Authentication.AuthenticationOptions;
+using AuthenticationService = BookIt.Infrastructure.Authentication.AuthenticationService;
+using IAuthenticationService = BookIt.Application.Abstractions.Authentication.IAuthenticationService;
 
 namespace BookIt.Infrastructure;
 
@@ -36,6 +41,8 @@ public static class DependencyInjection
         AddPersistence(services, configuration);
 
         AddAuthentication(services, configuration);
+        
+        AddAuthorization(services);
 
         return services;
     }
@@ -94,5 +101,12 @@ public static class DependencyInjection
             new SqlConnectionFactory(connectionString));
         
         SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
+    }
+
+    private static void AddAuthorization(IServiceCollection services)
+    {
+        services.AddScoped<AuthorizationService>();
+
+        services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
     }
 }

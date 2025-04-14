@@ -1,8 +1,8 @@
-﻿using BookIt.Application.Users.LoginUser;
+﻿using BookIt.Application.Users.GetLoggedInUser;
+using BookIt.Application.Users.LoginUser;
 using BookIt.Application.Users.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookIt.Api.Controllers.Users;
@@ -16,6 +16,18 @@ public class UserController : ControllerBase
     public UserController(ISender sender)
     {
         _sender = sender;
+    }
+
+    [HttpGet("me")]
+    [Authorize(Roles = Roles.Registered)]
+    //[HasPermission(PermissionSetEncoder.UsersRead)]
+    public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
+    {
+        var query = new GetLoggedInUserQuery();
+
+        var result = await _sender.Send(query, cancellationToken);
+
+        return Ok(result.Value);
     }
 
      [AllowAnonymous] // so that anyone can register
