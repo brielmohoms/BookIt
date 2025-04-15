@@ -8,5 +8,8 @@ public enum Amenity
     PetFriendly = 4,
     Swimming = 5,
     Gym = 6,
-    Spa = 7
+    Spa = 7,
+    Terrace = 8,
+    MountainView = 9,
+    GardenView = 10
 }

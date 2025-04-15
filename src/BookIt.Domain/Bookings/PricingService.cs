@@ -10,27 +10,33 @@ public class PricingService
         var currency = apartment.Price.Currency;
         
         var priceForPeriod = new Money(
-            apartment.Price.Amount * period.LengthInDays, currency);
+            apartment.Price.Amount * period.LengthInDays, 
+            currency);
 
         decimal percentageUpCharge = 0;
+        
         foreach (var amenity in apartment.Amenities)
         {
             percentageUpCharge += amenity switch
             {
+                Amenity.GardenView or Amenity.MountainView => 0.05m,
                 Amenity.AirConditioning => 0.01m,
                 Amenity.Parking => 0.01m,
                 _ => 0
             };
         }
 
-        var amenitiesUpCharge = Money.Zero();
+        var amenitiesUpCharge = Money.Zero(currency);
+        
         if (percentageUpCharge > 0)
         {
             amenitiesUpCharge = new Money(
-                priceForPeriod.Amount * percentageUpCharge, currency);
+                priceForPeriod.Amount * percentageUpCharge, 
+                currency);
         }
         
-        var totalPrice = Money.Zero();
+        var totalPrice = Money.Zero(currency);
+        
         totalPrice += priceForPeriod;
 
         if (!apartment.CleaningFee.IsZero())
