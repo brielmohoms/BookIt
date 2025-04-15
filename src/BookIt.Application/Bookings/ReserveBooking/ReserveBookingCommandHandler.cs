@@ -1,7 +1,6 @@
 ﻿using BookIt.Application.Abstractions.Clock;
 using BookIt.Application.Exceptions;
 using BookIt.Application.Abstractions.Messaging;
-using BookIt.Domain;
 using BookIt.Domain.Abstractions;
 using BookIt.Domain.Apartments;
 using BookIt.Domain.Bookings;
@@ -37,18 +36,21 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
     public async Task<Result<Guid>> Handle(ReserveBookingCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
-        if (user == null)
+        
+        if (user is null)
         {
             return Result.Failure<Guid>(UserErrors.NotFound);
         }
         
         var apartment = await _apartmentRepository.GetByIdAsync(request.ApartmentId, cancellationToken);
+        
         if (apartment is null)
         {
             return Result.Failure<Guid>(ApartmentErrors.NotFound);
         }
         
         var duration = DateRange.Create(request.StartDate, request.EndDate);
+        
         if (await _bookingRepository.IsOverlappingAsync(apartment, duration, cancellationToken))
         {
             return Result.Failure<Guid>(BookingErrors.Overlap);
@@ -57,8 +59,8 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
         try
         {
             var booking = Booking.Reserve(
-                user.Id,
                 apartment,
+                user.Id,
                 duration,
                 _dateTimeProvider.Now,
                 _pricingService);

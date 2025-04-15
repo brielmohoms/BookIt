@@ -1,5 +1,5 @@
 ﻿using BookIt.Application.Abstractions.Behaviors;
-using BookIt.Domain;
+using BookIt.Domain.Bookings;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 

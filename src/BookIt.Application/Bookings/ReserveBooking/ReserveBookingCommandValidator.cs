@@ -1,5 +1,4 @@
-﻿using BookIt.Domain.Apartments;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace BookIt.Application.Bookings.ReserveBooking;
 

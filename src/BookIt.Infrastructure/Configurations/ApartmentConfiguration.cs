@@ -1,4 +1,5 @@
 ﻿using BookIt.Domain.Apartments;
+using BookIt.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

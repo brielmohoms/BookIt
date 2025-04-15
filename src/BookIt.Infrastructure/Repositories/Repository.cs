@@ -27,6 +27,6 @@ internal abstract class Repository<T>
     // adds an entity to the database
     public virtual void Add(T entity) // virtual to allow us override the entity in the user repository 
     {
-        DbContext.Set<T>().Add(entity);
+        DbContext.Add(entity);
     }
 }

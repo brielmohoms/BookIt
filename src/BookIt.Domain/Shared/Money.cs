@@ -1,4 +1,4 @@
-﻿namespace BookIt.Domain.Apartments;
+﻿namespace BookIt.Domain.Shared;
 
 public record Money(decimal Amount, Currency Currency)
 {

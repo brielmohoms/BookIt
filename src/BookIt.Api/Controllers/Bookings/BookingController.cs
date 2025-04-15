@@ -1,10 +1,12 @@
 ﻿using BookIt.Application.Bookings.GetBooking;
 using BookIt.Application.Bookings.ReserveBooking;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookIt.Api.Controllers.Bookings;
 
+[Authorize]
 [ApiController]
 [Route("api/bookings")]
 public class BookingController : ControllerBase

@@ -1,4 +1,5 @@
 ﻿using BookIt.Domain.Abstractions;
+using BookIt.Domain.Shared;
 
 namespace BookIt.Domain.Apartments;
 

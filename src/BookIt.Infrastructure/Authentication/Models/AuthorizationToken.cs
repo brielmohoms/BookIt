@@ -5,5 +5,5 @@ namespace BookIt.Infrastructure.Authentication.Models;
 public sealed class AuthorizationToken // used to authenticate to the keycloak admin api
 {
     [JsonPropertyName("access_token")]
-    public string AccessToken { get; set; } = string.Empty;
+    public string AccessToken { get; init; } = string.Empty;
 }

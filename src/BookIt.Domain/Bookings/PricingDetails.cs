@@ -1,6 +1,6 @@
-﻿using BookIt.Domain.Apartments;
+﻿using BookIt.Domain.Shared;
 
-namespace BookIt.Domain;
+namespace BookIt.Domain.Bookings;
 
 public record PricingDetails(
     Money PriceForPeriod,

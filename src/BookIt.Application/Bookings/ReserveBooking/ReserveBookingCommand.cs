@@ -3,7 +3,7 @@
 namespace BookIt.Application.Bookings.ReserveBooking;
 
 public record ReserveBookingCommand(
-    Guid UserId,
     Guid ApartmentId,
+    Guid UserId,
     DateOnly StartDate,
     DateOnly EndDate) : ICommand<Guid>;

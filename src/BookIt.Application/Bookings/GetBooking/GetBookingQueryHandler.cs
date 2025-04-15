@@ -1,6 +1,8 @@
-﻿using BookIt.Application.Abstractions.Data;
+﻿using BookIt.Application.Abstractions.Authentication;
+using BookIt.Application.Abstractions.Data;
 using BookIt.Application.Abstractions.Messaging;
 using BookIt.Domain.Abstractions;
+using BookIt.Domain.Bookings;
 using Dapper;
 
 namespace BookIt.Application.Bookings.GetBooking;
@@ -8,6 +10,7 @@ namespace BookIt.Application.Bookings.GetBooking;
 internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, BookingResponse>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
+    //private readonly IUserContext _userContext;
 
     public GetBookingQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
     {
@@ -31,9 +34,9 @@ internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, Bo
                            amenities_up_charge_currency AS AmenitiesUpChargeCurrency,
                            total_price_amount AS TotalPrice,
                            total_price_currency AS TotalPriceCurrency,
-                           duration_start AS StartDate,
-                           duration_end AS EndDate,
-                           created_on_utc AS DateCreated
+                           duration_start_date AS StartDate,
+                           duration_end_date AS EndDate,
+                           date_created AS DateCreated
                            FROM bookings
                            WHERE id = @BookingId
                            """;

@@ -1,26 +1,31 @@
 ﻿using BookIt.Domain.Abstractions;
 using BookIt.Domain.Apartments;
+using BookIt.Domain.Shared;
 using BookIt.Domain.Users.Events;
 
 namespace BookIt.Domain.Bookings;
 
 public sealed class Booking : Entity
 {
-    private Booking(Guid id, 
-        Guid userId, 
+    private Booking(
+        Guid id, 
         Guid apartmentId, 
+        Guid userId,
         DateRange duration, 
         Money priceForPeriod, 
         Money cleaningFee, 
+        Money amenitiesUpCharge,
         Money totalPrice, 
         BookingStatus status, 
-        DateTime dateCreated) : base(id)
+        DateTime dateCreated) 
+        : base(id)
     {
-        UserId = userId;
         ApartmentId = apartmentId;
+        UserId = userId;
         Duration = duration;
         PriceForPeriod = priceForPeriod;
         CleaningFee = cleaningFee;
+        AmenitiesUpCharge = amenitiesUpCharge;
         TotalPrice = totalPrice;
         Status = status;
         DateCreated = dateCreated;
@@ -57,21 +62,25 @@ public sealed class Booking : Entity
     public DateTime DateRejected { get; private set; }
 
     public static Booking Reserve(
-        Guid userId, 
         Apartment apartment,
+        Guid userId,
         DateRange duration, 
         DateTime now, 
         PricingService pricingService)
     {
         var pricingDetails = pricingService.CalculatePrice(apartment, duration);
+        
         var booking = new Booking(
             Guid.NewGuid(), 
-            userId, apartment.Id, 
+            apartment.Id, 
+            userId,
             duration, 
             pricingDetails.PriceForPeriod, 
             pricingDetails.CleaningFee, 
+            pricingDetails.AmenitiesUpCharge,
             pricingDetails.TotalPrice, 
-            BookingStatus.Reserved, now);
+            BookingStatus.Reserved, 
+            now);
         
         booking.RaiseDomainEvent(new BookingReserveDomainEvent(booking.Id));
         
@@ -88,6 +97,7 @@ public sealed class Booking : Entity
         }
         
         Status = BookingStatus.Confirmed;
+        
         DateConfirmed = now;
         
         RaiseDomainEvent(new BookingConfirmedDomainEvent(Id));

@@ -1,6 +1,7 @@
 ﻿using BookIt.Domain.Apartments;
+using BookIt.Domain.Shared;
 
-namespace BookIt.Domain;
+namespace BookIt.Domain.Bookings;
 
 public class PricingService
 {

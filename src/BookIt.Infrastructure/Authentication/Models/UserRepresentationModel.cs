@@ -1,5 +1,4 @@
 ﻿using BookIt.Domain.Users;
-using BookIt.Infrastructure.Authentication.Models;
 
 namespace BookIt.Infrastructure.Authentication.Models;
 
@@ -14,6 +13,8 @@ public sealed class UserRepresentationModel
     public long? CreatedTimestamp { get; set; }
     
     public CredentialRepresentationModel[] Credentials { get; set; }
+    
+    public string[] DisableableCredentialTypes { get; set; }
     
     public string Email { get; set; }
     
