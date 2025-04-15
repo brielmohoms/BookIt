@@ -34,7 +34,7 @@ internal sealed class CustomClaimsTransformation : IClaimsTransformation
 
         var claimsIdentity = new ClaimsIdentity();
         
-        claimsIdentity.AddClaim(new Claim(JwtRegisteredClaimNames.Sub, userRoles.Id.ToString()));
+        claimsIdentity.AddClaim(new Claim(JwtRegisteredClaimNames.Sub, userRoles.UserId.ToString()));
 
         foreach (var role in userRoles.Roles)
         {

@@ -17,8 +17,8 @@ internal sealed class AuthorizationService
         var roles = await _dbContext.Set<User>()
             .Where(user => user.IdentityId == identityId)
             .Select(user => new UserRolesResponse
-            {
-                Id = user.Id,
+            { 
+                UserId = user.Id,
                 Roles = user.Roles.ToList()
             })
             .FirstAsync();

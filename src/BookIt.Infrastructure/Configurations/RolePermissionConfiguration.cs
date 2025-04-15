@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookIt.Infrastructure.Configurations;
 
-public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermission>
+internal sealed class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermission>
 {
     public void Configure(EntityTypeBuilder<RolePermission> builder)
     {
         builder.ToTable("role_permissions");
         
-        builder.HasKey(rolePermission => new {rolePermission.RoleId, rolePermission.PermissionId});
+        builder.HasKey(rolePermission => new { rolePermission.RoleId, rolePermission.PermissionId });
 
         builder.HasData(
             new RolePermission
