@@ -18,8 +18,4 @@
       <ProjectReference Include="..\BookIt.Domain\BookIt.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Reviews\" />
-    </ItemGroup>
-
 </Project>
