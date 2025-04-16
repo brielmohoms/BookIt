@@ -1,7 +1,7 @@
 ﻿using BookIt.Application.Abstractions.Email;
 using BookIt.Domain.Bookings;
+using BookIt.Domain.Bookings.Events;
 using BookIt.Domain.Users;
-using BookIt.Domain.Users.Events;
 using MediatR;
 
 namespace BookIt.Application.Bookings.ReserveBooking;

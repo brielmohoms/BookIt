@@ -9,7 +9,7 @@ internal static class ClaimsPrincipalExtensions
     {
         var userId = principal?.FindFirstValue(JwtRegisteredClaimNames.Sub);
     
-        return Guid.TryParse(userId, out var parsedUserId) ?
+        return Guid.TryParse(userId, out Guid parsedUserId) ?
             parsedUserId :
             throw new ApplicationException("User identifier is unavailable");
     }
@@ -17,6 +17,6 @@ internal static class ClaimsPrincipalExtensions
     public static string GetIdentityId(this ClaimsPrincipal? principal)
     {
         return principal?.FindFirstValue(ClaimTypes.NameIdentifier) ??
-               throw new ApplicationException("ser identity is unavailable");
+               throw new ApplicationException("User identity is unavailable");
     }
 }

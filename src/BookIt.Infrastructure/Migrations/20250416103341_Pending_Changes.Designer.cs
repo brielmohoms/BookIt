@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookIt.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250414121927_Add_Permissions")]
-    partial class Add_Permissions
+    [Migration("20250416103341_Pending_Changes")]
+    partial class Pending_Changes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,15 +130,8 @@ namespace BookIt.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("role_id");
-
                     b.HasKey("Id")
                         .HasName("pk_permissions");
-
-                    b.HasIndex("RoleId")
-                        .HasDatabaseName("ix_permissions_role_id");
 
                     b.ToTable("permissions", (string)null);
 
@@ -189,6 +182,9 @@ namespace BookIt.Infrastructure.Migrations
 
                     b.HasKey("RoleId", "PermissionId")
                         .HasName("pk_role_permissions");
+
+                    b.HasIndex("PermissionId")
+                        .HasDatabaseName("ix_role_permissions_permission_id");
 
                     b.ToTable("role_permissions", (string)null);
 
@@ -305,7 +301,7 @@ namespace BookIt.Infrastructure.Migrations
                                 .HasConstraintName("fk_apartments_apartments_id");
                         });
 
-                    b.OwnsOne("BookIt.Domain.Apartments.Money", "CleaningFee", b1 =>
+                    b.OwnsOne("BookIt.Domain.Shared.Money", "CleaningFee", b1 =>
                         {
                             b1.Property<Guid>("ApartmentId")
                                 .HasColumnType("uuid")
@@ -329,7 +325,7 @@ namespace BookIt.Infrastructure.Migrations
                                 .HasConstraintName("fk_apartments_apartments_id");
                         });
 
-                    b.OwnsOne("BookIt.Domain.Apartments.Money", "Price", b1 =>
+                    b.OwnsOne("BookIt.Domain.Shared.Money", "Price", b1 =>
                         {
                             b1.Property<Guid>("ApartmentId")
                                 .HasColumnType("uuid")
@@ -379,7 +375,7 @@ namespace BookIt.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_bookings_user_user_id");
 
-                    b.OwnsOne("BookIt.Domain.Apartments.Money", "AmenitiesUpCharge", b1 =>
+                    b.OwnsOne("BookIt.Domain.Shared.Money", "AmenitiesUpCharge", b1 =>
                         {
                             b1.Property<Guid>("BookingId")
                                 .HasColumnType("uuid")
@@ -403,7 +399,7 @@ namespace BookIt.Infrastructure.Migrations
                                 .HasConstraintName("fk_bookings_bookings_id");
                         });
 
-                    b.OwnsOne("BookIt.Domain.Apartments.Money", "CleaningFee", b1 =>
+                    b.OwnsOne("BookIt.Domain.Shared.Money", "CleaningFee", b1 =>
                         {
                             b1.Property<Guid>("BookingId")
                                 .HasColumnType("uuid")
@@ -427,7 +423,7 @@ namespace BookIt.Infrastructure.Migrations
                                 .HasConstraintName("fk_bookings_bookings_id");
                         });
 
-                    b.OwnsOne("BookIt.Domain.Apartments.Money", "PriceForPeriod", b1 =>
+                    b.OwnsOne("BookIt.Domain.Shared.Money", "PriceForPeriod", b1 =>
                         {
                             b1.Property<Guid>("BookingId")
                                 .HasColumnType("uuid")
@@ -451,7 +447,7 @@ namespace BookIt.Infrastructure.Migrations
                                 .HasConstraintName("fk_bookings_bookings_id");
                         });
 
-                    b.OwnsOne("BookIt.Domain.Apartments.Money", "TotalPrice", b1 =>
+                    b.OwnsOne("BookIt.Domain.Shared.Money", "TotalPrice", b1 =>
                         {
                             b1.Property<Guid>("BookingId")
                                 .HasColumnType("uuid")
@@ -475,7 +471,7 @@ namespace BookIt.Infrastructure.Migrations
                                 .HasConstraintName("fk_bookings_bookings_id");
                         });
 
-                    b.OwnsOne("BookIt.Domain.DateRange", "Duration", b1 =>
+                    b.OwnsOne("BookIt.Domain.Bookings.DateRange", "Duration", b1 =>
                         {
                             b1.Property<Guid>("BookingId")
                                 .HasColumnType("uuid")
@@ -514,12 +510,21 @@ namespace BookIt.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookIt.Domain.Users.Permission", b =>
+            modelBuilder.Entity("BookIt.Domain.Users.RolePermission", b =>
                 {
+                    b.HasOne("BookIt.Domain.Users.Permission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_role_permissions_permissions_permission_id");
+
                     b.HasOne("BookIt.Domain.Users.Role", null)
-                        .WithMany("UsersPermissions")
+                        .WithMany()
                         .HasForeignKey("RoleId")
-                        .HasConstraintName("fk_permissions_role_role_id");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_role_permissions_roles_role_id");
                 });
 
             modelBuilder.Entity("RoleUser", b =>
@@ -537,11 +542,6 @@ namespace BookIt.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_role_user_user_users_id");
-                });
-
-            modelBuilder.Entity("BookIt.Domain.Users.Role", b =>
-                {
-                    b.Navigation("UsersPermissions");
                 });
 #pragma warning restore 612, 618
         }

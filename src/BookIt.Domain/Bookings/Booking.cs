@@ -1,5 +1,6 @@
 ﻿using BookIt.Domain.Abstractions;
 using BookIt.Domain.Apartments;
+using BookIt.Domain.Bookings.Events;
 using BookIt.Domain.Shared;
 using BookIt.Domain.Users.Events;
 

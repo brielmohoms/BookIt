@@ -1,5 +1,4 @@
-﻿using BookIt.Domain;
-using BookIt.Domain.Apartments;
+﻿using BookIt.Domain.Apartments;
 using BookIt.Domain.Bookings;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +28,8 @@ internal sealed class BookingRepository : Repository<Booking>, IBookingRepositor
         DateRange duration,
         CancellationToken cancellationToken = default)
     {
-        return await DbContext.Set<Booking>()
+        return await DbContext
+            .Set<Booking>()
             .AnyAsync(
                 booking => 
                     booking.ApartmentId == apartment.Id && 

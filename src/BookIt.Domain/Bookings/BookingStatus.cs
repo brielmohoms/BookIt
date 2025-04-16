@@ -1,4 +1,4 @@
-﻿namespace BookIt.Domain;
+﻿namespace BookIt.Domain.Bookings;
 
 public enum BookingStatus
 {

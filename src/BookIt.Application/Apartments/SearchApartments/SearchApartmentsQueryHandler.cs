@@ -1,7 +1,7 @@
 ﻿using BookIt.Application.Abstractions.Data;
 using BookIt.Application.Abstractions.Messaging;
-using BookIt.Domain;
 using BookIt.Domain.Abstractions;
+using BookIt.Domain.Bookings;
 using Dapper;
 
 namespace BookIt.Application.Apartments.SearchApartments;

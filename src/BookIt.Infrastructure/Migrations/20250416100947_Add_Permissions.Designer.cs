@@ -3,6 +3,7 @@ using System;
 using BookIt.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookIt.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250416100947_Add_Permissions")]
+    partial class Add_Permissions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,8 +130,15 @@ namespace BookIt.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("role_id");
+
                     b.HasKey("Id")
                         .HasName("pk_permissions");
+
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("ix_permissions_role_id");
 
                     b.ToTable("permissions", (string)null);
 
@@ -179,9 +189,6 @@ namespace BookIt.Infrastructure.Migrations
 
                     b.HasKey("RoleId", "PermissionId")
                         .HasName("pk_role_permissions");
-
-                    b.HasIndex("PermissionId")
-                        .HasDatabaseName("ix_role_permissions_permission_id");
 
                     b.ToTable("role_permissions", (string)null);
 
@@ -507,21 +514,12 @@ namespace BookIt.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookIt.Domain.Users.RolePermission", b =>
+            modelBuilder.Entity("BookIt.Domain.Users.Permission", b =>
                 {
-                    b.HasOne("BookIt.Domain.Users.Permission", null)
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_role_permissions_permissions_permission_id");
-
                     b.HasOne("BookIt.Domain.Users.Role", null)
-                        .WithMany()
+                        .WithMany("UsersPermissions")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_role_permissions_roles_role_id");
+                        .HasConstraintName("fk_permissions_role_role_id");
                 });
 
             modelBuilder.Entity("RoleUser", b =>
@@ -539,6 +537,11 @@ namespace BookIt.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_role_user_user_users_id");
+                });
+
+            modelBuilder.Entity("BookIt.Domain.Users.Role", b =>
+                {
+                    b.Navigation("UsersPermissions");
                 });
 #pragma warning restore 612, 618
         }
