@@ -17,6 +17,8 @@ public static class DependencyInjection // responsible to register the services 
                                                                        // statement and execute the command handler before returning the response
                                                                        
             configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
+
+            configuration.AddOpenBehavior(typeof(QueryCachingBehavior<,>));
         });
         
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);

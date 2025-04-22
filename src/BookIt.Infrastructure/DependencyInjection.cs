@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.Abstractions.Authentication;
+using BookIt.Application.Abstractions.Caching;
 using BookIt.Application.Abstractions.Clock;
 using BookIt.Application.Abstractions.Data;
 using BookIt.Application.Abstractions.Email;
@@ -9,6 +10,7 @@ using BookIt.Domain.Reviews;
 using BookIt.Domain.Users;
 using BookIt.Infrastructure.Authentication;
 using BookIt.Infrastructure.Authorization;
+using BookIt.Infrastructure.Caching;
 using BookIt.Infrastructure.Clock;
 using BookIt.Infrastructure.Data;
 using BookIt.Infrastructure.Email;
@@ -31,8 +33,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        IConfiguration configuration
-    )
+        IConfiguration configuration)
     {
         // register date time provider
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
@@ -45,6 +46,8 @@ public static class DependencyInjection
         AddAuthentication(services, configuration);
         
         AddAuthorization(services);
+        
+        AddCaching(services, configuration);
 
         return services;
     }
@@ -120,5 +123,15 @@ public static class DependencyInjection
         services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+    }
+
+    private static void AddCaching(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("Cache") ??
+                               throw new ArgumentNullException(nameof(configuration));
+
+        services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
+
+        services.AddSingleton<ICacheService, CacheService>();
     }
 }

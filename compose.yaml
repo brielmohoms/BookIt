@@ -57,9 +57,17 @@
   bookit-seq:
     image: datalust/seq:latest
     container_name: BookIt.Seq
+    restart: always
     environment:
       - ACCEPT_EULA=Y
     ports:
       - "5341:5341"
       - "8081:80"
+  
+  bookit-redis:
+    image: redis:latest
+    container_name: BookIt.Redis
+    restart: always
+    ports:
+      - "6379:6379"
     
