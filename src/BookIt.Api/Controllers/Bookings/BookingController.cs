@@ -1,4 +1,5 @@
-﻿using BookIt.Application.Bookings.GetBooking;
+﻿using Asp.Versioning;
+using BookIt.Application.Bookings.GetBooking;
 using BookIt.Application.Bookings.ReserveBooking;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,8 @@ namespace BookIt.Api.Controllers.Bookings;
 
 [Authorize]
 [ApiController]
-[Route("api/bookings")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/bookings")]
 public class BookingController : ControllerBase
 {
     private readonly ISender _sender;

@@ -1,4 +1,5 @@
-﻿using BookIt.Application.Users.GetLoggedInUser;
+﻿using Asp.Versioning;
+using BookIt.Application.Users.GetLoggedInUser;
 using BookIt.Application.Users.LoginUser;
 using BookIt.Application.Users.RegisterUser;
 using BookIt.Infrastructure.Authorization;
@@ -9,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookIt.Api.Controllers.Users;
 
 [ApiController]
-[Route("api/users")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/users")]
 public class UserController : ControllerBase
 {
     private readonly ISender _sender; 
@@ -21,7 +23,7 @@ public class UserController : ControllerBase
 
     [HttpGet("me")]
     [HasPermission(Permissions.UsersRead)]
-    public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetLoggedInUserV1(CancellationToken cancellationToken)
     {
         var query = new GetLoggedInUserQuery();
 

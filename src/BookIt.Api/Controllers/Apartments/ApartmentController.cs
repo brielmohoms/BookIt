@@ -1,4 +1,5 @@
-﻿using BookIt.Application.Apartments.SearchApartments;
+﻿using Asp.Versioning;
+using BookIt.Application.Apartments.SearchApartments;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,8 @@ namespace BookIt.Api.Controllers.Apartments;
 
 [Authorize]
 [ApiController]
-[Route("api/apartments")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/apartments")]
 public class ApartmentController : ControllerBase
 {
     private readonly ISender _sender;
