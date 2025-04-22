@@ -67,7 +67,7 @@ public static class DependencyInjection
 
         services.AddScoped<IBookingRepository, BookingRepository>();
         
-        //services.AddScoped(IReviewRepository, ReviewRepository);
+        services.AddScoped<IReviewRepository, ReviewRepository>();
         
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
         

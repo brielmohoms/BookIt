@@ -17,7 +17,7 @@ public class ReviewController : ControllerBase
         _sender = sender;
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<IActionResult> AddReview(AddReviewRequest request, CancellationToken cancellationToken)
     {
         var command = new AddReviewCommand(request.BookingId, request.Rating, request.Comment);
