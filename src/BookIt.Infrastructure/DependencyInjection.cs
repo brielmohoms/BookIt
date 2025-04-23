@@ -15,6 +15,7 @@ using BookIt.Infrastructure.Caching;
 using BookIt.Infrastructure.Clock;
 using BookIt.Infrastructure.Data;
 using BookIt.Infrastructure.Email;
+using BookIt.Infrastructure.Outbox;
 using BookIt.Infrastructure.Repositories;
 using Dapper;
 using Microsoft.AspNetCore.Authentication;
@@ -24,6 +25,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Quartz;
 using AuthenticationOptions = BookIt.Infrastructure.Authentication.AuthenticationOptions;
 using AuthenticationService = BookIt.Infrastructure.Authentication.AuthenticationService;
 using IAuthenticationService = BookIt.Application.Abstractions.Authentication.IAuthenticationService;
@@ -53,6 +55,8 @@ public static class DependencyInjection
         AddHealthChecks(services, configuration);
         
         AddApiVersioning(services);
+        
+        AddBackgroundJobs(services, configuration);
 
         return services;
     }
@@ -162,5 +166,13 @@ public static class DependencyInjection
                 options.SubstituteApiVersionInUrl = true; 
             });
     }
-    
+
+    private static void AddBackgroundJobs(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<OutboxOptions>(configuration.GetSection("Outbox"));
+
+        services.AddQuartz();
+
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+    }
 }
