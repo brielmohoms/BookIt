@@ -36,3 +36,7 @@ Desktop.ini
 
 .config/
 .containers/
+
+## NuGet packages
+packages/
+

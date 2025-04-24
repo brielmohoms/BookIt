@@ -28,4 +28,9 @@
         <ProjectReference Include="..\BookIt.Application\BookIt.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="BookIt.Application.IntegrationTests" />
+        <InternalsVisibleTo Include="BookIt.Api.FunctionalTests" />
+    </ItemGroup>
+    
 </Project>

@@ -1,5 +1,5 @@
 ﻿using BookIt.Domain.Abstractions;
 
-namespace BookIt.Domain.Users.Events;
+namespace BookIt.Domain.Bookings.Events;
 
-public record BookingCompletedDomainEvent(Guid bookingId) : IDomainEvent;
+public sealed record BookingCompletedDomainEvent(Guid bookingId) : IDomainEvent;
