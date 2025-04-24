@@ -19,4 +19,8 @@
       <ProjectReference Include="..\BookIt.Domain\BookIt.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="BookIt.Application.UnitTests" />
+    </ItemGroup>
+
 </Project>
